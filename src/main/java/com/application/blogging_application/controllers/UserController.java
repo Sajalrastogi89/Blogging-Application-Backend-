@@ -1,6 +1,4 @@
 package com.application.blogging_application.controllers;
-
-import com.application.blogging_application.entities.User;
 import com.application.blogging_application.payloads.APIResponse;
 import com.application.blogging_application.payloads.UserDTO;
 import com.application.blogging_application.services.UserService;
@@ -8,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +23,7 @@ public class UserController {
 
     //Create user
     @PostMapping("/")
-    public ResponseEntity<UserDTO> createNewUser(@RequestBody UserDTO userDTO){
+    public ResponseEntity<UserDTO> createNewUser(@Valid @RequestBody UserDTO userDTO){
 
        UserDTO createdUser= this.userService.createUser(userDTO);
         return new ResponseEntity<>(createdUser,HttpStatus.OK);
@@ -32,7 +31,7 @@ public class UserController {
 
 
 @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUsers(@RequestBody UserDTO user,@PathVariable Integer id){
+    public ResponseEntity<UserDTO> updateUsers(@Valid @RequestBody UserDTO user,@PathVariable Integer id){
         UserDTO user1=this.userService.updateUser(user,id);
         return ResponseEntity.ok(user1);
 }
@@ -53,11 +52,8 @@ public class UserController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Integer id){
-        try{
-        return new ResponseEntity<>(this.userService.getUserById(id),HttpStatus.OK);}
-        catch(Exception e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        System.out.println();
+        return new ResponseEntity<>(this.userService.getUserById(id),HttpStatus.OK);
     }
 
 }

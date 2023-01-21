@@ -1,14 +1,22 @@
 package com.application.blogging_application.payloads;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.application.blogging_application.services.UserService;
+import lombok.*;
+
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Getter@Setter
+
 @NoArgsConstructor
-@AllArgsConstructor
 public class APIResponse {
     private String message;
     private boolean Success;
+    private String date=(new SimpleDateFormat("dd/MM/yy")).format(new Date());
+
+    public APIResponse(String message, boolean Success) {
+        this.message = message;
+        this.Success = Success;
+    }
+
 }

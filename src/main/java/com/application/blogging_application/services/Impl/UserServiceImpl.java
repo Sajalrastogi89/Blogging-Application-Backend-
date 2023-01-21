@@ -5,9 +5,11 @@ import com.application.blogging_application.payloads.UserDTO;
 import com.application.blogging_application.repositories.UserRepo;
 import com.application.blogging_application.services.UserService;
 import com.application.blogging_application.exceptions.ResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,9 +18,11 @@ public class UserServiceImpl implements UserService {
 
 
     private final UserRepo userrepo;
+    private  final ModelMapper modelMapper;
 
-    public UserServiceImpl(UserRepo userrepo) {
+    public UserServiceImpl(UserRepo userrepo, ModelMapper modelMapper) {
         this.userrepo = userrepo;
+        this.modelMapper = modelMapper;
     }
 
 
@@ -59,23 +63,21 @@ public class UserServiceImpl implements UserService {
       this.userrepo.delete(user);
     }
 
+    @Override
+    public String date1() {
+
+            Date date = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+            return formatter.format(date);
+
+    }
+
     public UserDTO userToDTO(User user){
-        UserDTO userDTO=new UserDTO();
-        userDTO.setId(user.getId());
-        userDTO.setName(user.getName());
-        userDTO.setAbout(user.getAbout());
-        userDTO.setEmail(user.getEmail());
-        userDTO.setPassword(user.getPassword());
-        return  userDTO;
+        return modelMapper.map(user,UserDTO.class);
+
     }
     public User dtoToUser(UserDTO userDTO){
-        User user=new User();
-        user.setName(userDTO.getName());
-        user.setPassword(userDTO.getPassword());
-        user.setId(userDTO.getId());
-        user.setEmail(userDTO.getEmail());
-        user.setAbout((userDTO.getAbout()));
-        return user;
+     return modelMapper.map(userDTO,User.class);
     }
 
 
