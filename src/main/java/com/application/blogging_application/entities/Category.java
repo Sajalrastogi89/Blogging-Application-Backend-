@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.List;
 
 @Getter@Setter
 @NoArgsConstructor
@@ -18,4 +19,5 @@ public class Category {
     private Integer categoryId;
     private String categoryTitle;
     private String categoryDescription;
+    private List<Post> post;
 }

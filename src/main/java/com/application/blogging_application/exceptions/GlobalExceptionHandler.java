@@ -15,11 +15,6 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    private final UserService userService;
-
-    public GlobalExceptionHandler(UserService userService) {
-        this.userService = userService;
-    }
 
 
     @ExceptionHandler(ResourceNotFoundException.class)
@@ -33,7 +28,7 @@ public class GlobalExceptionHandler {
         Map<String,String> map=new HashMap<>();
         y.getBindingResult().getAllErrors().forEach(error->{
            String FeildName= ((FieldError)error).getField();
-            String Message=((FieldError)error).getDefaultMessage();
+            String Message=(error).getDefaultMessage();
             map.put(FeildName,Message);
         });
         return new ResponseEntity<>(map,HttpStatus.BAD_REQUEST);

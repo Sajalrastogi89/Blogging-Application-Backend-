@@ -11,14 +11,14 @@ import javax.validation.constraints.*;
 @Getter@Setter
 public class UserDTO {
     private int id;
-   @NotEmpty
+   @NotBlank
    @Size(min = 4,message = "Username must be min of 4 characters")
     private String name;
     @Email
     private String email;
-    @NotEmpty
+    @NotBlank
     @Pattern(regexp = "(?=^.{8,20}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$",message = "Invalid password")
     private String password;
-    @NotEmpty
+    @NotBlank
     private String about;
 }
