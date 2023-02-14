@@ -4,23 +4,21 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 @Getter@Setter@NoArgsConstructor@AllArgsConstructor
 @Entity
 public class Post {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Integer PostId;
-    @NotBlank(message = "postDate shout not be empty after trimming or null")
+    private Integer postId;
+
     private String postTitle;
-    @NotBlank(message = "postDate shout not be empty after trimming or null")
     private String postDescription;
-    @NotBlank(message = "postDate shout not be empty after trimming or null")
-    private Date postDate;
+    private String postDate;
     @ManyToOne
     private User user;
     @ManyToOne
